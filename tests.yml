@@ -1,0 +1,15 @@
+Avenger Knight:
+  - link: https://megamitensei.fandom.com/wiki/Avenger_Knight
+  - test: Boss, Persona 4 and Persona 4 Golden are split into differen h3's
+
+Shadow Yukiko:
+  - link: https://megamitensei.fandom.com/wiki/Shadow_Yukiko
+  - test: Under Persona 4 h3, it is further split into h4's
+
+Death Seeker:
+  - link: https://megamitensei.fandom.com/wiki/Death_Seeker
+  - test: Persona 4 Golden is hidden as a tab under Persona 4 h3
+
+Happiness Hand:
+  - link: https://megamitensei.fandom.com/wiki/Happiness_Hand
+  - test: No h3, everything under "Stats" h2
