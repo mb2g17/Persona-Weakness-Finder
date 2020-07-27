@@ -17,7 +17,7 @@ class Page:
         weaknesses = []
 
         for sibling in siblings:
-            if sibling.name == 'h2':
+            if sibling.name == 'h2' or sibling.name == 'p':
                 break
 
             if sibling.name == 'h3':
@@ -30,10 +30,20 @@ class Page:
                 for tab in tabs:
                     tab_name = tab.attrs['title']
                     table = tab.find("table")
+
+                    full_name = h3_name + " - " + h4_name + " - " + tab_name
+
                     weaknesses.append({
-                        "name": h3_name + " - " + h4_name + " - " + tab_name,
-                        "weakness": list(self.get_weaknesses_from_table(table))
+                        "name": (full_name if h3_name != "" else "No name"),
+                        "list": list(self.get_weaknesses_from_table(table))
                     })
+
+            if sibling.name == 'table':
+                table = sibling
+                weaknesses.append({
+                    "name": "No name",
+                    "list": list(self.get_weaknesses_from_table(table))
+                })
 
         return weaknesses
 
