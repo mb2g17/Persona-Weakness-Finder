@@ -6,5 +6,5 @@ class UiController:
     def __init__(self, app, window):
         self.app = app
 
-        self.form = form_view.Ui_Form()
+        self.form = form_view.Ui_form()
         self.form.setupUi(window)
