@@ -53,26 +53,6 @@
            <height>16777215</height>
           </size>
          </property>
-         <item>
-          <property name="text">
-           <string>Persona 4 - Boss</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Persona 4 - Shadow</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Persona 4 Golden - Boss</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Persona 4 Golden - Shadow</string>
-          </property>
-         </item>
         </widget>
        </item>
       </layout>
