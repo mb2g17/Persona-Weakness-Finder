@@ -18,11 +18,11 @@ class UiController:
 
     def on_search_button_clicked(self):
         try:
-            shadow = api.get_shadow_page(self.get_search_input_text())
+            shadow_page = api.get_shadow_page(self.get_search_input_text())
         except Exception as e:
             print(e)
         else:
-            print(shadow)
+            print(shadow_page.get_weaknesses())
 
     def get_search_input_text(self):
         return self.form.search_input.text()

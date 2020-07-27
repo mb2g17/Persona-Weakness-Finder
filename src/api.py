@@ -7,9 +7,7 @@ def get_shadow_page(query):
 
     # Gets HTML page
     r = requests.get(link)
-    page = Page(r.text)
-
-    return page.get_games()
+    return Page(r.text)
 
 
 def search_shadow_url(query):
