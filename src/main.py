@@ -1,6 +1,6 @@
-from form import form_controller
-
 from PyQt5 import QtWidgets
+
+from form import form_controller
 
 # Initialises the app
 app = QtWidgets.QApplication([])

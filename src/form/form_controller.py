@@ -1,13 +1,15 @@
-import form.form_view as form_view
-import api
+from typing import Optional
 
-from PyQt5 import QtGui, QtWidgets
+import form.form_view as form_view
+from api import get_shadow_page
+from model.page import Page
 
 
 class UiController:
     def __init__(self, app, window):
         self.app = app
         self.weaknesses = []
+        self.page: Optional[Page] = None
 
         # Sets up form UI
         self.form = form_view.Ui_form()
@@ -16,33 +18,37 @@ class UiController:
         # Sets up event handlers
         self.form.search_button.clicked.connect(self.on_search_button_clicked)
         self.form.search_input.returnPressed.connect(self.on_search_button_clicked)
-        self.form.shadow_type_list.itemClicked.connect(self.on_shadow_type_selected)
+        self.form.variation_list.itemClicked.connect(self.on_shadow_type_selected)
 
     def on_search_button_clicked(self):
         try:
-            shadow_page = api.get_shadow_page(self.get_search_input_text())
+            self.page = get_shadow_page(self.get_search_input_text())
         except Exception as e:
             print(e)
         else:
-            self.form.shadow_type_list.clear()
-            self.weaknesses = shadow_page.get_weaknesses()
-
-            for weakness in self.weaknesses:
-                self.form.shadow_type_list.addItem(weakness["name"])
+            self.update_variation_list()
 
     def on_shadow_type_selected(self, item):
-        shadow_type = item.text()
+        variation = item.text()
 
-        for weakness in self.weaknesses:
-            if weakness["name"] == shadow_type:
-                self.form.phys_weakness.setText(weakness["list"][0])
-                self.form.fire_weakness.setText(weakness["list"][1])
-                self.form.ice_weakness.setText(weakness["list"][2])
-                self.form.elec_weakness.setText(weakness["list"][3])
-                self.form.wind_weakness.setText(weakness["list"][4])
-                self.form.light_weakness.setText(weakness["list"][5])
-                self.form.dark_weakness.setText(weakness["list"][6])
-                self.form.almi_weakness.setText(weakness["list"][7])
+        # Get shadow from variation
+        shadow = self.page.get_shadow(variation)
+
+        # Updates weakness view
+        self.form.phys_weakness.setText(shadow.get_weaknesses("Phys"))
+        self.form.fire_weakness.setText(shadow.get_weaknesses("Fire"))
+        self.form.ice_weakness.setText(shadow.get_weaknesses("Ice"))
+        self.form.elec_weakness.setText(shadow.get_weaknesses("Elec"))
+        self.form.wind_weakness.setText(shadow.get_weaknesses("Wind"))
+        self.form.light_weakness.setText(shadow.get_weaknesses("Light"))
+        self.form.dark_weakness.setText(shadow.get_weaknesses("Dark"))
+        self.form.almi_weakness.setText(shadow.get_weaknesses("Almi"))
+
+    def update_variation_list(self):
+        self.form.variation_list.clear()
+
+        for variation in self.page.get_variations():
+            self.form.variation_list.addItem(variation)
 
     def get_search_input_text(self):
         return self.form.search_input.text()

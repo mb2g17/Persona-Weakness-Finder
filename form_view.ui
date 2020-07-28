@@ -46,7 +46,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QListWidget" name="shadow_type_list">
+        <widget class="QListWidget" name="variation_list">
          <property name="maximumSize">
           <size>
            <width>16777215</width>
