@@ -11,7 +11,8 @@ class Page:
 
         shadows = parse_soup(self.soup)
 
-        for (variation, shadow) in shadows:
+        for shadow in shadows:
+            variation = shadow.get_variation()
             self.shadow[variation] = shadow
 
     def get_variations(self) -> List[str]:

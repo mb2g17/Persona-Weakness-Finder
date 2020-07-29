@@ -3,10 +3,7 @@ from bs4 import BeautifulSoup
 from model.shadow import Shadow
 
 
-def parse_soup(soup: BeautifulSoup) -> List[Tuple[str, Shadow]]:
-    """
-    :return: List of tuples [(variation, shadow)]
-    """
+def parse_soup(soup: BeautifulSoup) -> List[Shadow]:
     # Finds h2 with 'Stats' in it
     h2 = soup.find(lambda tag: tag.name == 'h2' and 'Stats' in tag.text)
 
@@ -18,7 +15,7 @@ def parse_soup(soup: BeautifulSoup) -> List[Tuple[str, Shadow]]:
     siblings = h2.next_siblings
     h3_name = ""
     h4_name = ""
-    shadows: List[(str, Shadow)] = []
+    shadows: List[Shadow] = []
 
     for sibling in siblings:
         if sibling.name == 'h2':
@@ -40,10 +37,10 @@ def parse_soup(soup: BeautifulSoup) -> List[Tuple[str, Shadow]]:
                 if 'Persona Q' in full_variation:
                     break
 
-                shadow = __try_create_shadow_from_table__(table)
+                shadow = __try_create_shadow_from_table__(table, full_variation)
 
                 if shadow is not None:
-                    shadows.append((full_variation, shadow))
+                    shadows.append(shadow)
 
         # A weakness table with no tabs
         elif sibling.name == 'table':
@@ -54,10 +51,10 @@ def parse_soup(soup: BeautifulSoup) -> List[Tuple[str, Shadow]]:
             if 'Persona Q' in full_variation:
                 break
 
-            shadow = __try_create_shadow_from_table__(sibling)
+            shadow = __try_create_shadow_from_table__(sibling, full_variation)
 
             if shadow is not None:
-                shadows.append((full_variation, shadow))
+                shadows.append(shadow)
 
     return shadows
 
@@ -93,9 +90,9 @@ def __create_full_variation_name__(h3_name: str, h4_name: str, tab_name: str) ->
     return full_variation
 
 
-def __try_create_shadow_from_table__(table) -> Optional[Shadow]:
+def __try_create_shadow_from_table__(table, full_variation: str) -> Optional[Shadow]:
     # Create shadow
-    shadow = Shadow()
+    shadow = Shadow(full_variation)
 
     # Fill shadow with weaknesses
     weakness_tuples = __get_weaknesses_from_table__(table)
