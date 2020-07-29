@@ -24,28 +24,40 @@ def parse_soup(soup: BeautifulSoup) -> List[Tuple[str, Shadow]]:
         if sibling.name == 'h2':
             break
 
-        if sibling.name == 'h3':
+        elif sibling.name == 'h3':
             h3_name = sibling.text.replace("Edit", "")
-        if sibling.name == 'h4':
+        elif sibling.name == 'h4':
             h4_name = sibling.text.replace("Edit", "")
 
         # A weakness table with tabs
-        if sibling.name == 'div' and "tabber" in sibling.attrs['class']:
+        elif sibling.name == 'div' and 'tabber' in sibling.attrs['class']:
 
             tables = __get_tables_from_tabber__(sibling)
             for (tab_name, table) in tables:
                 full_variation = __create_full_variation_name__(h3_name, h4_name, tab_name)
+
+                # If this is a Persona Q variation, skip it (we don't support them)
+                if 'Persona Q' in full_variation:
+                    break
+
                 shadow = __try_create_shadow_from_table__(table)
 
                 if shadow is not None:
                     shadows.append((full_variation, shadow))
 
         # A weakness table with no tabs
-        if sibling.name == 'table':
+        elif sibling.name == 'table':
+
+            full_variation = __create_full_variation_name__(h3_name, h4_name, '')
+
+            # If this is a Persona Q variation, skip it (we don't support them)
+            if 'Persona Q' in full_variation:
+                break
+
             shadow = __try_create_shadow_from_table__(sibling)
 
             if shadow is not None:
-                shadows.append(("No variation", shadow))
+                shadows.append((full_variation, shadow))
 
     return shadows
 
@@ -72,7 +84,13 @@ def __create_full_variation_name__(h3_name: str, h4_name: str, tab_name: str) ->
         names.append(h4_name)
     if tab_name != "":
         names.append(tab_name)
-    return " - ".join(names)
+
+    full_variation = " - ".join(names)
+
+    if full_variation == '':
+        full_variation = "No variation"
+
+    return full_variation
 
 
 def __try_create_shadow_from_table__(table) -> Optional[Shadow]:
@@ -94,7 +112,7 @@ def __try_create_shadow_from_table__(table) -> Optional[Shadow]:
 
 def __get_weaknesses_from_table__(table) -> List[Tuple[str, str]]:
     """
-    :return: List of weakness tuples [(type, status)]
+    :return: List of weakness tuples [(type, status)], or empty list if there are no weaknesses
     """
     custom_tables = table.find_all("table", {
         "class": "customtable"
