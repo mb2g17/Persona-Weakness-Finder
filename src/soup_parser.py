@@ -10,6 +10,10 @@ def parse_soup(soup: BeautifulSoup) -> List[Tuple[str, Shadow]]:
     # Finds h2 with 'Stats' in it
     h2 = soup.find(lambda tag: tag.name == 'h2' and 'Stats' in tag.text)
 
+    # If there is no h2, throw error
+    if h2 is None:
+        raise Exception("No h2 tag found")
+
     # Iterates through h2 siblings
     siblings = h2.next_siblings
     h3_name = ""
