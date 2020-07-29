@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 from bs4 import BeautifulSoup
 from model.shadow import Shadow
 
@@ -21,7 +21,7 @@ def parse_soup(soup: BeautifulSoup) -> List[Tuple[str, Shadow]]:
     shadows: List[(str, Shadow)] = []
 
     for sibling in siblings:
-        if sibling.name == 'h2' or sibling.name == 'p':
+        if sibling.name == 'h2':
             break
 
         if sibling.name == 'h3':
@@ -35,14 +35,17 @@ def parse_soup(soup: BeautifulSoup) -> List[Tuple[str, Shadow]]:
             tables = __get_tables_from_tabber__(sibling)
             for (tab_name, table) in tables:
                 full_variation = __create_full_variation_name__(h3_name, h4_name, tab_name)
-                shadow = __create_shadow_from_table__(table)
+                shadow = __try_create_shadow_from_table__(table)
 
-                shadows.append((full_variation, shadow))
+                if shadow is not None:
+                    shadows.append((full_variation, shadow))
 
         # A weakness table with no tabs
         if sibling.name == 'table':
-            shadow = __create_shadow_from_table__(sibling)
-            shadows.append(("No variation", shadow))
+            shadow = __try_create_shadow_from_table__(sibling)
+
+            if shadow is not None:
+                shadows.append(("No variation", shadow))
 
     return shadows
 
@@ -52,6 +55,7 @@ def __get_tables_from_tabber__(tabber) -> List[Tuple[str, any]]:
 
     tabs = tabber.find_all("div", {"class": "tabbertab"})
     for tab in tabs:
+
         tab_name = tab.attrs['title']
         table = tab.find("table")
 
@@ -71,26 +75,36 @@ def __create_full_variation_name__(h3_name: str, h4_name: str, tab_name: str) ->
     return " - ".join(names)
 
 
-def __create_shadow_from_table__(table) -> Shadow:
+def __try_create_shadow_from_table__(table) -> Optional[Shadow]:
     # Create shadow
     shadow = Shadow()
 
     # Fill shadow with weaknesses
     weakness_tuples = __get_weaknesses_from_table__(table)
     for (weakness_type, weakness_status) in weakness_tuples:
+
         shadow.add_weakness(weakness_type, weakness_status)
 
-    # Return shadow
-    return shadow
+    # If there were no weaknesses, return None (for no shadow from table)
+    if len(weakness_tuples) == 0:
+        return None
+    else:
+        return shadow
 
 
 def __get_weaknesses_from_table__(table) -> List[Tuple[str, str]]:
     """
     :return: List of weakness tuples [(type, status)]
     """
-    weakness_table = table.find_all("table", {
+    custom_tables = table.find_all("table", {
         "class": "customtable"
-    })[1]
+    })
+
+    # If there are no custom tables, there is no weakness table
+    if len(custom_tables) == 0:
+        return []
+
+    weakness_table = custom_tables[1]
 
     rows = weakness_table.find_all("tr")
     type_row = rows[0].find_all("th")
