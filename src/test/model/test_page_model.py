@@ -1,229 +1,32 @@
 import unittest
 from model.page import Page
 
+from test.html_files.avenger_knight_weaknesses import avenger_knight_weaknesses
+from test.html_files.death_seeker_weaknesses import death_seeker_weaknesses
+from test.html_files.happiness_hand_weaknesses import happiness_hand_weaknesses
+from test.html_files.laughing_table_weaknesses import laughing_table_weaknesses
+from test.html_files.nebiros_weaknesses import nebiros_weaknesses
+from test.html_files.shadow_yukiko_weaknesses import shadow_yukiko_weaknesses
+
 
 class TestPageModel(unittest.TestCase):
     def test_avenger_knight(self):
-        self.run_test_case("src/test/html_files/avenger_knight.html", {
-            "Persona 3 - The Journey": {
-                "Slash": "Null",
-                "Strike": "-",
-                "Pierce": "-",
-                "Fire": "-",
-                "Ice": "-",
-                "Elec": "-",
-                "Wind": "-",
-                "Light": "Weak",
-                "Dark": "-",
-                "Almi": "-"
-            },
-            "Persona 3 - The Answer": {
-                "Slash": "-",
-                "Strike": "-",
-                "Pierce": "Repel",
-                "Fire": "-",
-                "Ice": "-",
-                "Elec": "Drain",
-                "Wind": "-",
-                "Light": "Null",
-                "Dark": "Repel",
-                "Almi": "-"
-            },
-            "Persona 4 - Boss": {
-                "Phys": "Strong",
-                "Fire": "-",
-                "Ice": "-",
-                "Elec": "-",
-                "Wind": "-",
-                "Light": "Null",
-                "Dark": "Null",
-                "Almi": "-"
-            },
-            "Persona 4 - Normal Enemy": {
-                "Phys": "Strong",
-                "Fire": "-",
-                "Ice": "-",
-                "Elec": "-",
-                "Wind": "-",
-                "Light": "Weak",
-                "Dark": "-",
-                "Almi": "-"
-            },
-            "Persona 4 Golden - Boss": {
-                "Phys": "-",
-                "Fire": "Weak",
-                "Ice": "-",
-                "Elec": "-",
-                "Wind": "-",
-                "Light": "Null",
-                "Dark": "Null",
-                "Almi": "-"
-            },
-            "Persona 4 Golden - Normal Enemy": {
-                "Phys": "-",
-                "Fire": "Weak",
-                "Ice": "-",
-                "Elec": "-",
-                "Wind": "-",
-                "Light": "-",
-                "Dark": "-",
-                "Almi": "-"
-            },
-        })
+        self.run_test_case("src/test/html_files/avenger_knight.html", avenger_knight_weaknesses)
 
     def test_shadow_yukiko(self):
-        self.run_test_case("src/test/html_files/shadow_yukiko.html", {
-            "Persona 4 - Shadow Yukiko - Persona 4": {
-                "Phys": "-",
-                "Fire": "Drain",
-                "Ice": "-",
-                "Elec": "-",
-                "Wind": "-",
-                "Light": "Null",
-                "Dark": "Null",
-                "Almi": "-"
-            },
-            "Persona 4 - Shadow Yukiko - Golden": {
-                "Phys": "-",
-                "Fire": "Drain",
-                "Ice": "Weak",
-                "Elec": "-",
-                "Wind": "-",
-                "Light": "Null",
-                "Dark": "Null",
-                "Almi": "-"
-            },
-            "Persona 4 - Charming Prince - Persona 4": {
-                "Phys": "-",
-                "Fire": "-",
-                "Ice": "Weak",
-                "Elec": "-",
-                "Wind": "Strong",
-                "Light": "Null",
-                "Dark": "Null",
-                "Almi": "-"
-            },
-            "Persona 4 - Charming Prince - Golden": {
-                "Phys": "-",
-                "Fire": "-",
-                "Ice": "-",
-                "Elec": "Weak",
-                "Wind": "Strong",
-                "Light": "Null",
-                "Dark": "Null",
-                "Almi": "-"
-            }
-        })
+        self.run_test_case("src/test/html_files/shadow_yukiko.html", shadow_yukiko_weaknesses)
 
     def test_death_seeker(self):
-        self.run_test_case("src/test/html_files/death_seeker.html", {
-            "Persona 3 - The Journey": {
-                "Slash": "-",
-                "Strike": "-",
-                "Pierce": "-",
-                "Fire": "Strong",
-                "Ice": "-",
-                "Elec": "-",
-                "Wind": "-",
-                "Light": "Weak",
-                "Dark": "Repel",
-                "Almi": "-"
-            },
-            "Persona 3 - The Answer": {
-                "Slash": "-",
-                "Strike": "-",
-                "Pierce": "-",
-                "Fire": "Null",
-                "Ice": "-",
-                "Elec": "-",
-                "Wind": "-",
-                "Light": "Weak",
-                "Dark": "Repel",
-                "Almi": "-"
-            },
-            "Persona 4 - Persona 4": {
-                "Phys": "-",
-                "Fire": "-",
-                "Ice": "-",
-                "Elec": "-",
-                "Wind": "-",
-                "Light": "-",
-                "Dark": "-",
-                "Almi": "-"
-            },
-            "Persona 4 - Golden": {
-                "Phys": "-",
-                "Fire": "-",
-                "Ice": "-",
-                "Elec": "-",
-                "Wind": "-",
-                "Light": "Weak",
-                "Dark": "Null",
-                "Almi": "-"
-            }
-        })
+        self.run_test_case("src/test/html_files/death_seeker.html", death_seeker_weaknesses)
 
     def test_happiness_hand(self):
-        self.run_test_case("src/test/html_files/happiness_hand.html", {
-            "No variation": {
-                "Phys": "-",
-                "Fire": "Strong",
-                "Ice": "Strong",
-                "Elec": "Strong",
-                "Wind": "Strong",
-                "Light": "Strong",
-                "Dark": "Strong",
-                "Almi": "500%"
-            }
-        })
+        self.run_test_case("src/test/html_files/happiness_hand.html", happiness_hand_weaknesses)
 
     def test_laughing_table(self):
-        self.run_test_case("src/test/html_files/laughing_table.html", {
-            "Persona 3 - Persona 3": {
-                "Slash": "-",
-                "Strike": "-",
-                "Pierce": "Strong",
-                "Fire": "Weak",
-                "Ice": "Null",
-                "Elec": "-",
-                "Wind": "-",
-                "Light": "-",
-                "Dark": "-",
-                "Almi": "-"
-            },
-            "Persona 3 - The Answer": {
-                "Slash": "Repel",
-                "Strike": "-",
-                "Pierce": "-",
-                "Fire": "Weak",
-                "Ice": "Null",
-                "Elec": "-",
-                "Wind": "-",
-                "Light": "-",
-                "Dark": "-",
-                "Almi": "-"
-            },
-            "Persona 4 - Persona 4": {
-                "Phys": "Null",
-                "Fire": "Null",
-                "Ice": "Null",
-                "Elec": "Null",
-                "Wind": "Weak",
-                "Light": "Null",
-                "Dark": "Null",
-                "Almi": "-"
-            },
-            "Persona 4 - Persona 4 Golden": {
-                "Phys": "-",
-                "Fire": "-",
-                "Ice": "-",
-                "Elec": "Strong",
-                "Wind": "Weak",
-                "Light": "-",
-                "Dark": "-",
-                "Almi": "-"
-            }
-        })
+        self.run_test_case("src/test/html_files/laughing_table.html", laughing_table_weaknesses)
+
+    def test_nebiros(self):
+        self.run_test_case("src/test/html_files/nebiros.html", nebiros_weaknesses)
 
     def run_test_case(self, file_path: str, test_case):
         # Reads html
