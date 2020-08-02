@@ -20,6 +20,12 @@ def parse_table(table: Tag, variation_factory: VariationFactory) -> Optional[Sha
 
     # Fill shadow with weaknesses
     weakness_tuples = __get_weaknesses_from_table__(table)
+
+    # If there are no weaknesses
+    if len(weakness_tuples) == 0:
+        return None
+
+    # Add weaknesses to shadow model
     for (weakness_type, weakness_status) in weakness_tuples:
         shadow.add_weakness(weakness_type, weakness_status)
 
@@ -43,6 +49,10 @@ def __get_weaknesses_from_table__(table: Tag) -> List[Tuple[str, str]]:
         return []
 
     weakness_table = custom_tables[1]
+
+    # If this is a Persona table, return no weaknesses
+    if 'Inherit' in weakness_table.text:
+        return []
 
     rows = weakness_table.find_all("tr")
     type_row = rows[0].find_all("th")
