@@ -4,7 +4,7 @@ from model.page import Page
 
 class PageTest(unittest.TestCase):
     def test_avenger_knight(self):
-        self.run_test_case("html_files/avenger_knight.html", {
+        self.run_test_case("src/test/html_files/avenger_knight.html", {
             "Persona 3 - The Journey": {
                 "Slash": "Null",
                 "Strike": "-",
@@ -72,7 +72,7 @@ class PageTest(unittest.TestCase):
         })
 
     def test_shadow_yukiko(self):
-        self.run_test_case("html_files/shadow_yukiko.html", {
+        self.run_test_case("src/test/html_files/shadow_yukiko.html", {
             "Persona 4 - Shadow Yukiko - Persona 4": {
                 "Phys": "-",
                 "Fire": "Drain",
@@ -116,7 +116,7 @@ class PageTest(unittest.TestCase):
         })
 
     def test_death_seeker(self):
-        self.run_test_case("html_files/death_seeker.html", {
+        self.run_test_case("src/test/html_files/death_seeker.html", {
             "Persona 3 - The Journey": {
                 "Slash": "-",
                 "Strike": "-",
@@ -164,7 +164,7 @@ class PageTest(unittest.TestCase):
         })
 
     def test_happiness_hand(self):
-        self.run_test_case("html_files/happiness_hand.html", {
+        self.run_test_case("src/test/html_files/happiness_hand.html", {
             "No variation": {
                 "Phys": "-",
                 "Fire": "Strong",
@@ -178,7 +178,7 @@ class PageTest(unittest.TestCase):
         })
 
     def test_laughing_table(self):
-        self.run_test_case("html_files/laughing_table.html", {
+        self.run_test_case("src/test/html_files/laughing_table.html", {
             "Persona 3 - Persona 3": {
                 "Slash": "-",
                 "Strike": "-",
