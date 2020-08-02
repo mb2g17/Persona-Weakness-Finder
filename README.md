@@ -1,1 +1,1 @@
-Persona4WeaknessFinder
+# Persona Weakness Finder

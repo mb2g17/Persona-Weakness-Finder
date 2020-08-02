@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Persona 4 Weakness Finder</string>
+   <string>Persona Weakness Finder</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,10">
    <property name="spacing">
