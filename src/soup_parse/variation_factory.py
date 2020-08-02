@@ -5,6 +5,9 @@ class VariationFactory:
         self.tab_name = ""
 
     def create_full_variation_name(self) -> str:
+        if self.h3_name == '' and self.h4_name == '' and self.tab_name == '':
+            return "No variation"
+
         names = []
         if self.h3_name != "":
             names.append(self.h3_name)
@@ -14,8 +17,5 @@ class VariationFactory:
             names.append(self.tab_name)
 
         full_variation = " - ".join(names)
-
-        if full_variation == '':
-            full_variation = "No variation"
 
         return full_variation
