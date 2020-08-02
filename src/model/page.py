@@ -6,7 +6,7 @@ from soup_parse.main_parser import parse
 
 class Page:
     def __init__(self, html):
-        self.soup = BeautifulSoup(html, 'html.parser')
+        self.soup = BeautifulSoup(html, "html5lib")
         self.shadow: Dict[str, Shadow] = {}
 
         shadows = parse(self.soup)

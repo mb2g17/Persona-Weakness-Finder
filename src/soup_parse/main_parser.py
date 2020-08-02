@@ -25,6 +25,7 @@ def parse(soup: BeautifulSoup) -> List[Shadow]:
 
         elif sibling.name == 'h3':
             variation_factory.h3_name = sibling.text.replace("Edit", "")
+            variation_factory.h4_name = ""
 
         elif sibling.name == 'h4':
             variation_factory.h4_name = sibling.text.replace("Edit", "")

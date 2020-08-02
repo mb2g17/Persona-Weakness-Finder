@@ -12,7 +12,7 @@ nebiros_weaknesses = {
         "Curse": "Repel",
         "Almi": "-"
     },
-    "Persona 5 - Boss (Nijima Palace)": {
+    "Persona 5 - Boss (Niijima Palace)": {
         "Phys": "-",
         "Gun": "-",
         "Fire": "-",

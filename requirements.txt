@@ -2,3 +2,4 @@ PyQt5==5.15.0
 beautifulsoup4==4.9.1
 mypy==0.782
 requests==2.24.0
+html5lib==1.1

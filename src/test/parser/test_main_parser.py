@@ -36,7 +36,7 @@ class TestMainParser(unittest.TestCase):
         file.close()
 
         # Gets table
-        soup = BeautifulSoup(html, 'html.parser')
+        soup = BeautifulSoup(html, 'html5lib')
 
         # Parses table
         shadows = parse(soup)
