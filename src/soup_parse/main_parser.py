@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from model.shadow import Shadow
 
 
-def parse_soup(soup: BeautifulSoup) -> List[Shadow]:
+def parse(soup: BeautifulSoup) -> List[Shadow]:
     # Finds h2 with 'Stats' in it
     h2 = soup.find(lambda tag: tag.name == 'h2' and 'Stats' in tag.text)
 

@@ -2,7 +2,7 @@ import unittest
 from model.page import Page
 
 
-class PageTest(unittest.TestCase):
+class TestPageModel(unittest.TestCase):
     def test_avenger_knight(self):
         self.run_test_case("src/test/html_files/avenger_knight.html", {
             "Persona 3 - The Journey": {

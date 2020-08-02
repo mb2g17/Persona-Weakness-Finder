@@ -17,3 +17,7 @@ Happiness Hand:
 Laughing Table:
   - link: https://megamitensei.fandom.com/wiki/Laughing_Table
   - test: Persona Q stats can mess up parsing
+
+Nebiros:
+  - link: https://megamitensei.fandom.com/wiki/Nebiros
+  - test: Tables including Inherit, Reflects, Absorbs, Block, Resists, and Weak should be ignored
