@@ -1,5 +1,4 @@
 from typing import List, Tuple, Optional
-
 from bs4 import Tag
 
 from model.shadow import Shadow
@@ -10,7 +9,10 @@ def parse_table(table: Tag, variation_factory: VariationFactory) -> Optional[Sha
     full_variation = variation_factory.create_full_variation_name()
 
     # If this is a Persona Q variation, skip it (we don't support them)
-    if 'Persona Q' in full_variation:
+    if 'No variation' not in full_variation and \
+            'Persona 3' not in full_variation and \
+            'Persona 4' not in full_variation and \
+            'Persona 5' not in full_variation:
         return None
 
     # Create shadow

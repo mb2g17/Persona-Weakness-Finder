@@ -42,6 +42,9 @@ def parse(soup: BeautifulSoup) -> List[Shadow]:
                 if shadow is not None:
                     shadows.append(shadow)
 
+            # Reset tab name
+            variation_factory.tab_name = ""
+
         # A weakness table with no tabs
         elif sibling.name == 'table':
 
