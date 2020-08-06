@@ -1,3 +1,4 @@
+import threading
 from typing import Optional
 
 import form.form_view as form_view
@@ -21,12 +22,20 @@ class UiController:
         self.form.variation_list.itemClicked.connect(self.on_shadow_type_selected)
 
     def on_search_button_clicked(self):
-        try:
-            self.page = get_shadow_page(self.get_search_input_text())
-        except Exception as e:
-            print(e)
-        else:
+        self.display_start_loading_view()
+
+        shadow_name = self.form.search_input.text()
+
+        def get_shadow_weakness():
+            self.update_page(shadow_name)
             self.update_variation_list()
+            self.display_finished_loading_view()
+
+        thread = threading.Thread(target=get_shadow_weakness)
+        thread.start()
+
+    def update_page(self, shadow_name):
+        self.page = get_shadow_page(shadow_name)
 
     def on_shadow_type_selected(self, item):
         variation = item.text()
@@ -50,5 +59,11 @@ class UiController:
         for variation in self.page.get_variations():
             self.form.variation_list.addItem(variation)
 
-    def get_search_input_text(self):
-        return self.form.search_input.text()
+    def display_start_loading_view(self):
+        self.form.search_button.setEnabled(False)
+        self.form.search_button.setText("Loading...")
+        self.form.variation_list.clear()
+
+    def display_finished_loading_view(self):
+        self.form.search_button.setEnabled(True)
+        self.form.search_button.setText("Search")
