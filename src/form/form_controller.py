@@ -1,8 +1,10 @@
 import threading
 from typing import Optional
 
+from PyQt5.QtGui import QPixmap
+
 import form.form_view as form_view
-from api import get_shadow_page
+from api import get_shadow_page, save_shadow_portrait
 from model.page import Page
 
 
@@ -31,8 +33,26 @@ class UiController:
             self.update_variation_list()
             self.display_finished_loading_view()
 
-        thread = threading.Thread(target=get_shadow_weakness)
-        thread.start()
+        def get_shadow_portrait():
+
+            pixmap = QPixmap("assets/loading.png")
+            self.form.persona_display.setPixmap(pixmap)
+
+            if save_shadow_portrait(shadow_name):
+
+                pixmap = QPixmap("assets/portrait.png")
+                self.form.persona_display.setPixmap(pixmap)
+
+            else:
+
+                pixmap = QPixmap("assets/noportraitfound.png")
+                self.form.persona_display.setPixmap(pixmap)
+
+
+        weakness_thread = threading.Thread(target=get_shadow_weakness)
+        portrait_thread = threading.Thread(target=get_shadow_portrait)
+        weakness_thread.start()
+        portrait_thread.start()
 
     def update_page(self, shadow_name):
         self.page = get_shadow_page(shadow_name)
