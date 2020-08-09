@@ -119,11 +119,14 @@ class UiController:
         self.enable_persona_tab(2)
 
     def enable_persona_tab(self, index: int):
+        # Enables all tabs
         for i in range(0, 3):
             self.form.persona_tabs.setTabEnabled(i, True)
 
+        # Switches to tab we want
         self.form.persona_tabs.setCurrentIndex(index)
 
+        # Disables all tabs except the one we want
         for i in range(0, 3):
             self.form.persona_tabs.setTabEnabled(i, i == index)
 

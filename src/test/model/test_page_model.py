@@ -1,66 +1,45 @@
 import unittest
-from model.page import Page
+from unittest import mock
 
-from test.html_files.avenger_knight_weaknesses import avenger_knight_weaknesses
-from test.html_files.death_seeker_weaknesses import death_seeker_weaknesses
-from test.html_files.happiness_hand_weaknesses import happiness_hand_weaknesses
-from test.html_files.laughing_table_weaknesses import laughing_table_weaknesses
-from test.html_files.nebiros_weaknesses import nebiros_weaknesses
-from test.html_files.shadow_yukiko_weaknesses import shadow_yukiko_weaknesses
+from model.page import Page
+from model.shadow import Shadow
 
 
 class TestPageModel(unittest.TestCase):
-    def test_avenger_knight(self):
-        self.run_test_case("src/test/html_files/avenger_knight.html", avenger_knight_weaknesses)
+    def setUp(self):
+        # Creates shadows
+        self.shadow1 = Shadow("Persona 3 - Shadow 1")
+        self.shadow1.add_weakness("Phys", "Weak")
+        self.shadow1.add_weakness("Fire", "Strong")
 
-    def test_shadow_yukiko(self):
-        self.run_test_case("src/test/html_files/shadow_yukiko.html", shadow_yukiko_weaknesses)
+        self.shadow2 = Shadow("Persona 4 - Shadow 2")
+        self.shadow2.add_weakness("Ice", "Reflect")
+        self.shadow2.add_weakness("Wind", "-")
 
-    def test_death_seeker(self):
-        self.run_test_case("src/test/html_files/death_seeker.html", death_seeker_weaknesses)
+    def test_variations(self):
+        page = self.get_page()
 
-    def test_happiness_hand(self):
-        self.run_test_case("src/test/html_files/happiness_hand.html", happiness_hand_weaknesses)
+        # Asserts retrieved variations
+        variations = page.get_variations()
+        self.assertIn("Persona 3 - Shadow 1", variations)
+        self.assertIn("Persona 4 - Shadow 2", variations)
 
-    def test_laughing_table(self):
-        self.run_test_case("src/test/html_files/laughing_table.html", laughing_table_weaknesses)
+    def test_shadows(self):
+        page = self.get_page()
 
-    def test_nebiros(self):
-        self.run_test_case("src/test/html_files/nebiros.html", nebiros_weaknesses)
+        # Asserts retrieved shadows
+        self.assertIs(self.shadow1, page.get_shadow("Persona 3 - Shadow 1"))
+        self.assertIs(self.shadow2, page.get_shadow("Persona 4 - Shadow 2"))
 
-    def run_test_case(self, file_path: str, test_case):
-        # Reads html
-        file = open(file_path, mode='r', encoding='utf-8')
-        html = file.read()
-        file.close()
+    def get_page(self):
+        # Mocks parser
+        with mock.patch('soup_parse.main_parser') as mock_parser:
+            mock_parser.parse.return_value = [self.shadow1, self.shadow2]
 
-        # Creates page
-        page = Page(html)
-        page_variations = page.get_variations()
+            # Creates page (empty HTML because parser is mocked)
+            page = Page("")
 
-        for expected_variation in test_case.keys():
-            # Test if variation is in page
-            self.assertIn(expected_variation, page_variations, f'Variation {expected_variation} not found')
-
-            shadow = page.get_shadow(expected_variation)
-
-            # Goes through all weaknesses
-            expected_weaknesses = test_case[expected_variation]
-            for expected_weakness_type in expected_weaknesses.keys():
-
-                expected_status = expected_weaknesses[expected_weakness_type]
-                actual_status = shadow.get_weaknesses(expected_weakness_type)
-
-                # Tests weakness
-                self.assertEqual(expected_status, actual_status,
-                                 f'{actual_status} is not {expected_status} in variation {expected_variation}')
-
-            # Remove variation from list
-            page_variations.remove(expected_variation)
-
-        # Variation list should be empty
-        self.assertEqual(0, len(page_variations),
-                         "Variation list length is non-zero; did you miss some variation cases?")
+            return page
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 from typing import List, Dict
 from bs4 import BeautifulSoup
 from model.shadow import Shadow
-from soup_parse.main_parser import parse
+import soup_parse.main_parser
 
 
 class Page:
@@ -9,7 +9,7 @@ class Page:
         self.soup = BeautifulSoup(html, "html5lib")
         self.shadow: Dict[str, Shadow] = {}
 
-        shadows = parse(self.soup)
+        shadows = soup_parse.main_parser.parse(self.soup)
 
         for shadow in shadows:
             variation = shadow.get_variation()
