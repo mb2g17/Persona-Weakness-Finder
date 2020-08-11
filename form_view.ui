@@ -89,15 +89,21 @@
      <property name="enabled">
       <bool>true</bool>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="tabPosition">
       <enum>QTabWidget::North</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="persona_3_tab">
       <property name="enabled">
        <bool>true</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #4560A7</string>
       </property>
       <attribute name="title">
        <string>Persona 3</string>
@@ -424,6 +430,9 @@
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #FEEB4D</string>
+      </property>
       <attribute name="title">
        <string>Persona 4</string>
       </attribute>
@@ -671,6 +680,9 @@
       </layout>
      </widget>
      <widget class="QWidget" name="persona_5_tab">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(191, 21, 30);</string>
+      </property>
       <attribute name="title">
        <string>Persona 5</string>
       </attribute>

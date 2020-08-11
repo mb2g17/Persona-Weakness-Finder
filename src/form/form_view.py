@@ -48,10 +48,12 @@ class Ui_form(object):
         self.verticalLayout.addLayout(self.header)
         self.persona_tabs = QtWidgets.QTabWidget(form)
         self.persona_tabs.setEnabled(True)
+        self.persona_tabs.setStyleSheet("")
         self.persona_tabs.setTabPosition(QtWidgets.QTabWidget.North)
         self.persona_tabs.setObjectName("persona_tabs")
         self.persona_3_tab = QtWidgets.QWidget()
         self.persona_3_tab.setEnabled(True)
+        self.persona_3_tab.setStyleSheet("background-color: #4560A7")
         self.persona_3_tab.setObjectName("persona_3_tab")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.persona_3_tab)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -195,6 +197,7 @@ class Ui_form(object):
         self.persona_4_tab.setSizePolicy(sizePolicy)
         self.persona_4_tab.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.persona_4_tab.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.persona_4_tab.setStyleSheet("background-color: #FEEB4D")
         self.persona_4_tab.setObjectName("persona_4_tab")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.persona_4_tab)
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -304,6 +307,7 @@ class Ui_form(object):
         self.horizontalLayout.addLayout(self.almi_4)
         self.persona_tabs.addTab(self.persona_4_tab, "")
         self.persona_5_tab = QtWidgets.QWidget()
+        self.persona_5_tab.setStyleSheet("background-color: rgb(191, 21, 30);")
         self.persona_5_tab.setObjectName("persona_5_tab")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.persona_5_tab)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
@@ -454,7 +458,7 @@ class Ui_form(object):
         self.verticalLayout.addWidget(self.persona_tabs)
 
         self.retranslateUi(form)
-        self.persona_tabs.setCurrentIndex(0)
+        self.persona_tabs.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(form)
 
     def retranslateUi(self, form):
